@@ -1,7 +1,5 @@
 {
-    "app_status": {
-        "input": false
-    },
+
     "port_80_status": {
         "input": false
     },
@@ -27,6 +25,18 @@
         "input": false
     },
     "pm_status": {
+        "input": false
+    },
+    "druid_status_health":{
+        "input": false
+     },
+    "ssh_service_status": {
+        "input": false
+    },
+    "nginx_service_status": {
+        "input": false
+    },
+    "td-agent_service_status": {
         "input": false
     }
 
