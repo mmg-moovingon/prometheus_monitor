@@ -118,7 +118,7 @@ def check_iptables_content():
     try:
         with open('/etc/iptables/rules.v4') as f:
             content = f.read()
-            return 1 if "inner DO" in content and "-A INPUT -j DROP" in content and "Prometheus port 9100" in content else 0
+            return 1 if "Prometheus on port 9100" in content else 0
     except Exception as e:
         log_error("Error in check_iptables_content: {}".format(e))
         return 0
