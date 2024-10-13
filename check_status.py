@@ -9,7 +9,7 @@ import sys
 import requests
 
 # Path to the log file
-log_file_path = '/opt/monitor_python/check_status.log'
+log_file_path = '/opt/prometheus_monitor/check_status.log'
 hostname = socket.gethostname()
 if "logic" in hostname :
     app_name = 'logic'
