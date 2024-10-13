@@ -9,7 +9,7 @@ import sys
 import requests
 
 # Path to the log file
-log_file_path = '/opt/logic_monitor_check/check_status.log'
+log_file_path = '/opt/monitor_python/check_status.log'
 hostname = socket.gethostname()
 if "logic" in hostname :
     app_name = 'logic'
@@ -48,6 +48,18 @@ def get_app_status():
         # Handle any other exceptions
         print(f"Error in get_app_status: {e}")  # Print any errors
         return 0  # Return 0 on any exception
+def check_druid_health():
+    url = "http://localhost:8000/status/health"
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            # Directly check if the response text is 'true'
+            if response.text.strip().lower() == "true":
+                return 1
+        return 0
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return 0
 
 def check_port_status(port):
     """Checks if a port is open and in use."""
@@ -199,6 +211,7 @@ def generate_json_metrics(config):
     # Dynamically add other metrics based on config
     metric_functions = {
         #'app_status': get_app_status,
+        'druid_status_health': check_druid_health,
         'test_logic_scala': test_logic_scala,
         'port_80_status': lambda: check_port_status(80),
         'port_8080_status': lambda: check_port_status(8080),
@@ -215,7 +228,10 @@ def generate_json_metrics(config):
         'aerospike_port_status': lambda: check_port_status(3000),
         'aerospike_service_status': lambda: check_service_status('aerospike'),
         'sentinel_service_status': lambda: check_service_status('sentinelone'),
-    }
+        'td-agent_service_status': lambda: check_service_status('td-agent'),
+        'ssh_service_status': lambda: check_service_status('ssh'),
+        'nginx_service_status': lambda: check_service_status('nginx'),
+}
 
     for key, settings in config.items():
         # Only collect if the key has a corresponding function
@@ -232,7 +248,7 @@ def generate_json_metrics(config):
 
 if __name__ == "__main__":
 
-    config = load_configuration('/opt/logic_monitor_check/conf.json')
+    config = load_configuration('/opt/monitor_python/conf.json')
     # Generate the metrics based on the config
     data = generate_json_metrics(config)
 
