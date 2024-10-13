@@ -1,0 +1,33 @@
+{
+    "app_status": {
+        "input": false
+    },
+    "port_80_status": {
+        "input": false
+    },
+    "server_type": {
+        "input": false
+    },
+    "test_bidder": {
+        "input": false
+    },
+    "rsync_jsons_last_update": {
+        "input": false
+    },
+    "iptables_line_count": {
+        "input": false
+    },
+    "iptables_content_status": {
+        "input": false
+    },
+    "td_agent_port_status": {
+        "input": false
+    },
+    "sentinel_service_status": {
+        "input": false
+    },
+    "pm_status": {
+        "input": false
+    }
+
+}
